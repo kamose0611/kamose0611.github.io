@@ -8,10 +8,29 @@
     <link rel="manifest" href="manifest.json">
     <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
     <title>Refrigerator Checker</title>
+    <style>
+    h1 {
+      font-weight: normal;
+      padding-bottom: 10px;
+      text-align: center;
+      position: relative;
+      margin: 0 0 30px 0;
+      letter-spacing: 5px;
+    }
+    img {
+    height: 300px;
+    display: inline-block;
+    vertical-align: center;
+    text-align: center;
+    position: relative;
+    }
+    </style>
   </head>
   <body>
     <div id="app">
-        <p>冷蔵庫の残量</p>
+        <h1>冷蔵庫の残量</h1>
+        <div style="text-align: center;">
+        <img src="Refrigerator.png" alt=""></div><!-- 画像を表示 -->
         <button v-on:click="reverseMessage">Reverse Message</button>
      </div>
     <script>
