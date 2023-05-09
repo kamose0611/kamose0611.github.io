@@ -8,6 +8,14 @@
     <link rel="manifest" href="manifest.json">
     <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
     <title>Refrigerator Checker</title>
+    <script type="text/javascript">
+      function change1(event){
+				event.target.src = "Refrigerator.png";
+		}
+      function change2(event){
+				event.target.src = "Refrigerator close.png";
+		}
+    </script>
     <style>
     h1 {
       font-weight: normal;
@@ -24,13 +32,14 @@
     text-align: center;
     position: relative;
     }
+    
     </style>
   </head>
   <body>
     <div id="app">
-        <h1>冷蔵庫の残量</h1>
+        <h1>冷蔵庫の残量チェッカー</h1>
         <div style="text-align: center;">
-        <img src="Refrigerator.png" alt=""></div><!-- 画像を表示 -->
+        <img src="Refrigerator close.png" onmouseover="change1(event)" onmouseout="change2(event)" alt=""></div><!-- 画像を表示 -->
         <button v-on:click="reverseMessage">Reverse Message</button>
      </div>
     <script>
