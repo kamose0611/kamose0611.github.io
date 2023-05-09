@@ -1,13 +1,13 @@
 {
-    "short_name": "PWA",
-    "name": "PWA sample app",
+    "short_name": "Refrigerator app",
+    "name": "Refrigerator Checker app",
     "display": "standalone",
     "start_url": "index.html",
     "icons": [
         {
-            "src": "images/icon.jpg",
+            "src": "C:/Users/ユーザー/Desktop/project/kamose0611.github.io/kamose0611.github.io/Refrigerator.png",
             "sizes": "192x192",
-            "type": "image/jpg"
+            "type": "image/png"
         }
     ]
 }
