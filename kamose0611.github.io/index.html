@@ -10,7 +10,7 @@
     <title>Refrigerator Checker</title>
     <script type="text/javascript">
       function change1(event){
-				event.target.src = "Refrigerator.png";
+				event.target.src = "Refrigerator.png" ;
 		}
       function change2(event){
 				event.target.src = "Refrigerator close.png";
@@ -39,7 +39,7 @@
     <div id="app">
         <h1>冷蔵庫の残量チェッカー</h1>
         <div style="text-align: center;">
-        <img src="Refrigerator close.png" onmouseover="change1(event)" onmouseout="change2(event)" alt=""></div><!-- 画像を表示 -->
+        <a href="index2.html"><img id="reizou" src="Refrigerator close.png" onmouseover="change1(event)" onmouseout="change2(event)"  onclick="clickevent(event)" alt=""></a></div><!-- 画像を表示 -->
         <button v-on:click="reverseMessage">Reverse Message</button>
      </div>
     <script>
