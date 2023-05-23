@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+　　<!-- vue.js　-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="manifest" href="manifest.json">
+    <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
+    <title>Refrigerator Checker</title>
+    <style>
+        body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px; /* h1タグとの間にスペースを作る */
+    }
+
+    form {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      margin-top: 100px; /* h1タグとの間にスペースを作る */
+    }
+    .remove-button {
+        margin-left: 10px;
+        background-color: #f87167;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+       $(function() {
+      // ページロード時に保存されたデータを復元
+      var savedData = JSON.parse(localStorage.getItem('inputData'));
+      if (savedData) {
+        for (var i = 0; i < savedData.length; i++) {
+          addInputRow(savedData[i].text1, savedData[i].text2);
+        }
+      }
+
+      $('button#add').click(function(){
+        addInputRow('', '');
+      });
+
+      $('form').submit(function(e) {
+          e.preventDefault(); // フォームのデフォルトの送信をキャンセル
+          var inputData = [];
+          $('input[name="text_1[]"]').each(function() {
+            inputData.push({
+              text1: $(this).val(),
+              text2: $(this).closest('tr').find('input[name="text_2[]"]').val()
+            });
+          });
+          localStorage.setItem('inputData', JSON.stringify(inputData));
+          alert('入力内容が保存されました。');
+        });
+
+      $('table').on('click', '.remove-button', function() {
+          $(this).closest('tr').remove();
+        });
+      function addInputRow(text1, text2) {
+        var tr_form = $('<tr>' +
+          '<td><input type="text" name="text_1[]"></td>' +
+          '<td><input type="text" name="text_2[]"></td>' +
+          '<td><button class="remove-button">削除</button></td>' +
+        '</tr>');
+        tr_form.find('input[name="text_1[]"]').val(text1);
+        tr_form.find('input[name="text_2[]"]').val(text2);
+        tr_form.appendTo($('table > tbody'));
+      }
+    });
+    </script>
+    <style>
+    h1 {
+      font-weight: normal;
+      padding-bottom: 10px;
+      text-align: center;
+      position: relative;
+      margin: 0 0 30px 0;
+      letter-spacing: 5px;
+    }
+    img {
+    height: 300px;
+    display: inline-block;
+    vertical-align: center;
+    text-align: center;
+    position: relative;
+    }
+    
+    </style>
+  </head>
+  <body>
+    <div id="app">
+        <h1>冷蔵庫の残量チェッカー</h1>
+        <div style="text-align: center;">
+            <form action="data.php" method="post" enctype="multipart/form-data">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>材料</th>
+                      <th>数量</th>
+                      <th></th> <!-- 追加した部分 -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" name="text_1[]"></td>
+                      <td><input type="text" name="text_2[]"></td>
+                      <td><button class="remove-button">削除</button></td>
+             
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td><button id="add" type="button">追加</button></td>
+                      <td><input type="submit" name="send" value="記録"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </form>
+     </div>
+    <script>
+    // service workerの登録関係
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+    });
+    }
+    // vue.jsの設定関係
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    });
+    </script>
+  </body>
+</html>
