@@ -12,9 +12,11 @@
       function change1(event){
         event.target.src = "Refrigerator.png";
       }
+      
       function change2(event){
         event.target.src = "Refrigerator close.png";
       }
+      
       function clickevent(event) {
         event.preventDefault(); // デフォルトのクリックイベントをキャンセル
         window.location.href = "index2.html"; // URLを変更
@@ -45,20 +47,24 @@
     <div id="app">
       <h1>冷蔵庫の残量チェッカー</h1>
       <div style="text-align: center;">
-        <a href="index2.html" onclick="clickevent(event)"><img id="reizou" src="Refrigerator close.png" onmouseover="change1(event)" onmouseout="change2(event)" alt=""></a>
+        <a href="index2.html" onclick="clickevent(event)">
+          <img id="reizou" src="Refrigerator close.png" onmouseover="change1(event)" onmouseout="change2(event)" alt="">
+        </a>
       </div><!-- 画像を表示 -->
       <button onclick="window.location.href='https://chirashiplus.jp/'">広告</button>
-      <button onclick="window.location.href='https://example.com/vegetable-guide'">野菜の見分け方</button>
+      <button onclick="window.location.href='index3.html'">野菜の見分け方</button>
+      <button onclick="window.location.href='http://192.168.0.129'">カメラ</button>
     </div>
     <script>
       // service workerの登録関係
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service_worker.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }).catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
+          console.log('ServiceWorker registration failed: ', err);
         });
       }
+      
       // vue.jsの設定関係
       var app = new Vue({
         el: '#app',
