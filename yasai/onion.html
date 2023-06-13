@@ -29,23 +29,15 @@
         align-items: flex-start;
         justify-content: flex-start;
         margin-top: 20px;
-        height: 250px;
-        width: auto;
       }
       .image-container img {
         height: 250px;
-        width: 100%;
       }
-      @media (max-width: 600px) {
-        .image-container img {
-          height: 200px;
-        }
+      .image-container img:first-child {
+        width: auto;
       }
-
-      @media (min-width: 601px) {
-        .image-container img {
-          height: 300px;
-        }
+      .image-container img:last-child {
+        width: 250px;
       }
       .description1 {
         font-size: 36px;
@@ -56,6 +48,7 @@
         font-size: 24px;
         color: #333; /* 文字の色を設定 */
         text-align: left;
+        margin-top: -20px;
         margin-left: 20px;
       }
       .description3 {
@@ -67,6 +60,9 @@
       .centered {
         text-align: center;
       }
+      .bullet {
+        font-size: 24px; /* 大きさを調整 */
+      }
     </style>
   </head>
   <body>
@@ -77,47 +73,30 @@
         
       </div>
 
-        <div class="image-container">
-          <div>
-            <img src="yasai/onion.jpg" alt="Onion">
-            <p class="description3">フリー素材ぱくたそ</p>
+      <div class="image-container">
+        <div>
+          <img src="onion.jpg" alt="Onion">
+          <p class="description3">フリー素材ぱくたそ</p>
+        </div>
+        <div>
             <p class="description2">
-              <button onclick="window.location.href='yasai/onion.html'">タマネギ</button>
+              玉ねぎ：
+              <ul>
+                <li><span class="bullet">皮が乾燥して透明感のある茶色</span></li>
+                <li><span class="bullet">つやがある</span></li>
+                <li><span class="bullet">傷がない</span></li>
+                <li><span class="bullet">芽や根が出ていない</span></li>
+                <li><span class="bullet">丸々としている</span></li>
+                <li><span class="bullet">頭部がぎゅと締まっている</span></li>
+                <li><span class="bullet">頭部や根の部分が固い</span></li>
+                <li><span class="bullet">重量感がある</span></li>
+              </ul>
             </p>
-          </div>
-          <div>
-            <img src="yasai/kyabe.jpg" alt="Kyabe">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/kyabe.html'">キャベツ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/retasu.jpg" alt="Reta">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/retasu.html'">レタス</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/imo.jpg" alt="Imo">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/imo.html'">ジャガイモ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/nin.jpg" alt="Nin">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/nin.html'">ニンジン</button>
-            </p>
-          </div>
+          </p>
+          <p class="description2">皮に締まりがないものや、根が伸びてきているものは日にちが経っている可能性が高いです。</p>
         </div>
       </div>
-      
     </div>
-    
     <script>
       // service workerの登録関係
       if ('serviceWorker' in navigator) {

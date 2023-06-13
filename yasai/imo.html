@@ -29,24 +29,7 @@
         align-items: flex-start;
         justify-content: flex-start;
         margin-top: 20px;
-        height: 250px;
-        width: auto;
-      }
-      .image-container img {
-        height: 250px;
-        width: 100%;
-      }
-      @media (max-width: 600px) {
-        .image-container img {
-          height: 200px;
-        }
-      }
-
-      @media (min-width: 601px) {
-        .image-container img {
-          height: 300px;
-        }
-      }
+      } 
       .description1 {
         font-size: 36px;
         color: #1b862d; /* 文字の色を設定 */
@@ -56,6 +39,7 @@
         font-size: 24px;
         color: #333; /* 文字の色を設定 */
         text-align: left;
+        margin-top: -20px;
         margin-left: 20px;
       }
       .description3 {
@@ -67,6 +51,9 @@
       .centered {
         text-align: center;
       }
+      .bullet {
+        font-size: 24px; /* 大きさを調整 */
+      }
     </style>
   </head>
   <body>
@@ -77,47 +64,29 @@
         
       </div>
 
-        <div class="image-container">
-          <div>
-            <img src="yasai/onion.jpg" alt="Onion">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-              <button onclick="window.location.href='yasai/onion.html'">タマネギ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/kyabe.jpg" alt="Kyabe">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/kyabe.html'">キャベツ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/retasu.jpg" alt="Reta">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/retasu.html'">レタス</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/imo.jpg" alt="Imo">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/imo.html'">ジャガイモ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/nin.jpg" alt="Nin">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/nin.html'">ニンジン</button>
-            </p>
-          </div>
+      <div class="image-container">
+        <div>
+          <img src="imo.jpg" alt="Imo">
+          <p class="description3">フリー素材ぱくたそ</p>
+        </div>
+        <div>
+          <p class="description2">
+            じゃがいも：
+            <ul>
+              <li><span class="bullet">ふっくらとして丸みのあるもの</span></li>
+              <li><span class="bullet">表面が滑らかで凸凹が少ない</span></li>
+              <li><span class="bullet">固く締まっていて重量感がある</span></li>
+            </ul>
+          </p>
+          <p class="description2">緑がかった物は要注意
+            じゃがいもは基本貯蔵のきく食べ物ですが、日がたつと芽の周りが緑色に変化していきます。
+            また光に照らされれた場合もすぐに緑がかってきます。
+            光を浴びると発芽も促され芽も出やすくなります。
+            芽が緑がかった部分にはソラニンが含まれています。
+            ソラニンとはアルカロイドの一種でポテトグリコアルカロイド（PGA）と呼ばれる有毒物質です。</p>
         </div>
       </div>
-      
     </div>
-    
     <script>
       // service workerの登録関係
       if ('serviceWorker' in navigator) {

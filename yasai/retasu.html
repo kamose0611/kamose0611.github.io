@@ -29,24 +29,7 @@
         align-items: flex-start;
         justify-content: flex-start;
         margin-top: 20px;
-        height: 250px;
-        width: auto;
-      }
-      .image-container img {
-        height: 250px;
-        width: 100%;
-      }
-      @media (max-width: 600px) {
-        .image-container img {
-          height: 200px;
-        }
-      }
-
-      @media (min-width: 601px) {
-        .image-container img {
-          height: 300px;
-        }
-      }
+      } 
       .description1 {
         font-size: 36px;
         color: #1b862d; /* 文字の色を設定 */
@@ -56,6 +39,7 @@
         font-size: 24px;
         color: #333; /* 文字の色を設定 */
         text-align: left;
+        margin-top: -20px;
         margin-left: 20px;
       }
       .description3 {
@@ -67,6 +51,9 @@
       .centered {
         text-align: center;
       }
+      .bullet {
+        font-size: 24px; /* 大きさを調整 */
+      }
     </style>
   </head>
   <body>
@@ -77,47 +64,31 @@
         
       </div>
 
-        <div class="image-container">
-          <div>
-            <img src="yasai/onion.jpg" alt="Onion">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-              <button onclick="window.location.href='yasai/onion.html'">タマネギ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/kyabe.jpg" alt="Kyabe">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/kyabe.html'">キャベツ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/retasu.jpg" alt="Reta">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/retasu.html'">レタス</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/imo.jpg" alt="Imo">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/imo.html'">ジャガイモ</button>
-            </p>
-          </div>
-          <div>
-            <img src="yasai/nin.jpg" alt="Nin">
-            <p class="description3">フリー素材ぱくたそ</p>
-            <p class="description2">
-            <button onclick="window.location.href='yasai/nin.html'">ニンジン</button>
-            </p>
-          </div>
+      <div class="image-container">
+        <div>
+          <img src="kyabe1.jpg" alt="Kyabe1">
+          <p class="description3">フリー素材ぱくたそ</p>
+        </div>
+        <div>
+          <p class="description2">
+            キャベツ：
+            <ul>
+              <li><span class="bullet">葉にハリつやがあってみずみずしい</span></li>
+              <li><span class="bullet">葉の緑が濃い</span></li>
+              <li><span class="bullet">葉が黄色くない</span></li>
+              <li><span class="bullet">芯が白くてきれい</span></li>
+              <li><span class="bullet">芯が大きすぎない</span></li>
+              <li><span class="bullet">春キャベツは柔らかくて弾力性があるものを</span></li>
+              <li><span class="bullet">冬キャベツは見た目よりも重たいものを</span></li>
+              <li><span class="bullet">重量感のあるものを</span></li>
+            </ul>
+          </p>
+          <p class="description2">キャベツは低温下だと色素成分のアントシアニンを生成します。
+            この成分により葉の一部が紫色に変色します。そして低温下にさらされると凍らないように糖分を増やす働きがあります。
+            なので紫色に変色したキャベツはその分甘みもしっかりあることになります。</p>
         </div>
       </div>
-      
     </div>
-    
     <script>
       // service workerの登録関係
       if ('serviceWorker' in navigator) {
