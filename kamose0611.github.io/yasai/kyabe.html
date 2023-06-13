@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="manifest" href="manifest.json">
+    <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
+    <title>Refrigerator Checker</title>
+    <script type="text/javascript">
+      
+    </script>
+    <style>
+      h1 {
+        font-weight: normal;
+        padding-bottom: 10px;
+        text-align: center;
+        position: relative;
+        margin: 0 0 30px 0;
+        letter-spacing: 5px;
+        background-image: url('fresh.jpg');
+        background-size: cover;
+        color: white; /* テキストの色を設定 */
+      }
+      .image-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-top: 20px;
+      } 
+      .description1 {
+        font-size: 36px;
+        color: #1b862d; /* 文字の色を設定 */
+        text-align: center;
+      }
+      .description2 {
+        font-size: 24px;
+        color: #333; /* 文字の色を設定 */
+        text-align: left;
+        margin-top: -20px;
+        margin-left: 20px;
+      }
+      .description3 {
+        font-size: 12px;
+        color: #5a5a5a; /* 文字の色を設定 */
+        text-align: left;
+        margin-left: 20px;
+      }
+      .centered {
+        text-align: center;
+      }
+      .bullet {
+        font-size: 24px; /* 大きさを調整 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>冷蔵庫の残量チェッカー</h1>
+      <div class="centered">
+        <p class="description1">おいしい野菜の見分け方</p>
+        
+      </div>
+
+      <div class="image-container">
+        <div>
+          <img src="kyabe1.jpg" alt="Kyabe1">
+          <p class="description3">フリー素材ぱくたそ</p>
+        </div>
+        <div>
+          <p class="description2">
+            キャベツ：
+            <ul>
+              <li><span class="bullet">葉にハリつやがあってみずみずしい</span></li>
+              <li><span class="bullet">葉が黄色くなく緑が濃い</span></li>
+              <li><span class="bullet">芯が大きすぎなく白くてきれい</span></li>
+              <li><span class="bullet">春キャベツは柔らかくて弾力性があるものを</span></li>
+              <li><span class="bullet">冬キャベツは見た目よりも重たいものを</span></li>
+              <li><span class="bullet">重量感のあるものを</span></li>
+            </ul>
+          </p>
+          <p class="description2">キャベツは低温下だと色素成分のアントシアニンを生成します。
+            この成分により葉の一部が紫色に変色します。そして低温下にさらされると凍らないように糖分を増やす働きがあります。
+            なので紫色に変色したキャベツはその分甘みもしっかりあることになります。</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      // service workerの登録関係
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+      }
+      // vue.jsの設定関係
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue!'
+        },
+        methods: {
+          reverseMessage: function () {
+            this.message = this.message.split('').reverse().join('');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
