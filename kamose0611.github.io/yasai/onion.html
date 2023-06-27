@@ -25,20 +25,11 @@
       }
       .image-container {
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
         align-items: flex-start;
-        justify-content: flex-start;
+        justify-content: center;
         margin-top: 20px;
-      }
-      .image-container img {
-        height: 125px;
-      }
-      .image-container img:first-child {
-        width: auto;
-      }
-      .image-container img:last-child {
-        width: 250px;
-      }
+      } 
       .description1 {
         font-size: 36px;
         color: #1b862d; /* 文字の色を設定 */
@@ -64,8 +55,8 @@
         font-size: 18px; /* 大きさを調整 */
       }
       .image-container img {
-        width: 300px; /* 画像の幅を調整 */
-        height: auto; /* 高さは自動調整 */
+        max-width: 20%;
+        height: auto;
       }
     </style>
   </head>

@@ -25,9 +25,9 @@
       }
       .image-container {
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
         align-items: flex-start;
-        justify-content: flex-start;
+        justify-content: center;
         margin-top: 20px;
       } 
       .description1 {
@@ -36,14 +36,14 @@
         text-align: center;
       }
       .description2 {
-        font-size: 24px;
+        font-size: 18px;
         color: #333; /* 文字の色を設定 */
         text-align: left;
-        margin-top: -20px;
+        margin-top: 0px;
         margin-left: 20px;
       }
       .description3 {
-        font-size: 12px;
+        font-size: 6px;
         color: #5a5a5a; /* 文字の色を設定 */
         text-align: left;
         margin-left: 20px;
@@ -52,11 +52,11 @@
         text-align: center;
       }
       .bullet {
-        font-size: 24px; /* 大きさを調整 */
+        font-size: 18px; /* 大きさを調整 */
       }
       .image-container img {
-        width: 300px; /* 画像の幅を調整 */
-        height: auto; /* 高さは自動調整 */
+        max-width: 20%;
+        height: auto;
       }
     </style>
   </head>
