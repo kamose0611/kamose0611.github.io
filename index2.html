@@ -202,17 +202,27 @@
         }
         // vue.jsの設定関係
         var app = new Vue({
-          el: '#app',
-          data: {
-            message: 'Hello Vue!',
+        el: '#app',
+        methods: {
+          switchCamera: function() {
+            // カメラ切り替えの処理を記述
+            navigator.mediaDevices.getUserMedia({ video: true })
+              .then(function(stream) {
+                // カメラにアクセス成功時の処理
+                alert('カメラにアクセスしました');
+                // ここで取得したストリームを使って何か処理を行うことができます
+              })
+              .catch(function(error) {
+                // カメラにアクセス失敗時の処理
+                console.error('カメラにアクセスできません: ', error);
+              });
           },
-          methods: {
-            reverseMessage: function() {
-              this.message = this.message.split('').reverse().join('');
-            },
-          },
-        });
-      </script>
-    </div>
-  </body>
+        },
+      });
+    </script>
+  </div>
+</body>
 </html>
+
+
+
