@@ -57,7 +57,9 @@
       <button onclick="window.location.href='index3.html'">野菜の見分け方</button>
       <button onclick="window.location.href='http://192.168.0.20:81/stream'">カメラ</button>
       <button id="cameraButton">カメラを起動</button>
+      <div id="result"></div>
     </div>
+    <script src="https://tesseract.projectnaptha.com/tesseract.js"></script>
     <script>
     
         // ボタンをクリックしたときにカメラを起動
@@ -74,8 +76,24 @@
             inputElement.addEventListener('change', function (event) {
                 const file = event.target.files[0];
                 if (file) {
-                    // ここで選択されたファイルを処理することができます
-                    console.log('選択したファイル:', file);
+                    // 選択されたファイルを表示
+                    const image = new Image();
+                    image.src = URL.createObjectURL(file);
+                    document.body.appendChild(image);
+
+                    // Tesseract.jsでOCR処理
+                    const resultElement = document.getElementById('result');
+                    Tesseract.recognize(
+                        image,
+                        'eng', // 使用する言語を指定
+                        {
+                            logger: info => {
+                                console.log(info);
+                            },
+                        }
+                    ).then(({ data: { text } }) => {
+                        resultElement.textContent = text;
+                    });
                 }
             });
         });
