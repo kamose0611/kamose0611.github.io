@@ -40,6 +40,8 @@
       }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
     <script type="text/javascript">
       $(function() {
         var defaultIngredients = [
@@ -160,48 +162,47 @@
   <body>
     <div id="app">
       <h1>冷蔵庫の残量チェッカー</h1>
-      <div id="app">
-        <form action="data.php" method="post" enctype="multipart/form-data">
-          <table>
-            <thead>
-              <tr>
-                <th>材料</th>
-                <th>数量</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- ここからデフォルトの入力欄を10個作成 -->
-              <tr v-for="index in 10" :key="index">
-                <td><input type="text" name="text_1[]"></td>
-                <td><input type="text" name="text_2[]"></td>
-                <td><button class="remove-button">削除</button></td>
-              </tr>
-              <!-- ここまで -->
-            </tbody>
-            <tfoot>
-              <tr>
-                <td><button id="add" type="button">追加</button></td>
-                <td><input type="submit" name="send" value="記録"></td>
-              </tr>
-            </tfoot>
-          </table>
-        </form>
-      </div>
-      <script>
-        // service workerの登録関係
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker
-            .register('service_worker.js')
-            .then(function(registration) {
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            })
-            .catch(function(err) {
-              console.log('ServiceWorker registration failed: ', err);
-            });
-        }
-        // vue.jsの設定関係
-        var app = new Vue({
+      <form action="data.php" method="post" enctype="multipart/form-data">
+        <table>
+          <thead>
+            <tr>
+              <th>材料</th>
+              <th>数量</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- ここからデフォルトの入力欄を10個作成 -->
+            <tr v-for="index in 10" :key="index">
+              <td><input type="text" name="text_1[]"></td>
+              <td><input type="text" name="text_2[]"></td>
+              <td><button class="remove-button">削除</button></td>
+            </tr>
+            <!-- ここまで -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><button id="add" type="button" @click="switchCamera">カメラ起動</button></td>
+              <td><input type="submit" name="send" value="記録"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </div>
+    <script>
+      // service workerの登録関係
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('service_worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      }
+      // vue.jsの設定関係
+      var app = new Vue({
         el: '#app',
         methods: {
           switchCamera: function() {
@@ -220,9 +221,5 @@
         },
       });
     </script>
-  </div>
-</body>
+  </body>
 </html>
-
-
-
