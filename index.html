@@ -8,10 +8,6 @@
     <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
     <link rel="manifest" href="manifest.json">
     <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
-    <!-- TensorFlow.jsのスクリプト -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <!-- MobileNetモデルのスクリプト -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
     <title>Refrigerator Checker</title>
     <script type="text/javascript">
       
@@ -61,62 +57,11 @@
       <button onclick="window.location.href='index3.html'">野菜の見分け方</button>
       <button onclick="window.location.href='http://192.168.0.20:81/stream'">カメラ</button>
       <button id="cameraButton">カメラを起動</button>
-      <button onclick="runObjectDetection()">カメラを起動2</button>
       <div id="result"></div>
     </div>
     <script src="https://tesseract.projectnaptha.com/tesseract.js"></script>
     <script>
-      async function runObjectDetection() {
-            const imageElement = await setupCamera(); // カメラをセットアップ
-            const mobilenetModel = await loadMobileNet(); // MobileNetモデルをロード
-
-            // 画像から物体認識を実行
-            const predictions = await predictImage(imageElement, mobilenetModel);
-
-            // 結果を表示
-            displayResults(predictions);
-        }
-
-        async function setupCamera() {
-            const video = document.createElement('video');
-            document.body.appendChild(video);
-
-            // カメラにアクセス
-            const stream = await navigator.mediaDevices.getUserMedia({ 'video': true });
-            video.srcObject = stream;
-
-            return new Promise((resolve) => {
-                video.onloadedmetadata = () => {
-                    resolve(video);
-                };
-            });
-        }
-        
-
-        async function loadMobileNet() {
-            // MobileNetモデルをロード
-            const mobilenet = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json');
-            return mobilenet;
-        }
-
-        async function predictImage(imageElement, model) {
-            // 画像をTensorに変換
-            const image = tf.browser.fromPixels(imageElement);
-
-            // MobileNetモデルによる物体認識
-            const predictions = await model.predict(image.expandDims(0)).data();
-
-            return predictions;
-        }
-
-        function displayResults(predictions) {
-            const resultElement = document.getElementById('result');
-            resultElement.innerHTML = '';
-
-            for (let i = 0; i < predictions.length; i++) {
-                resultElement.innerHTML += `予測 ${i + 1}: ${predictions[i]}<br>`;
-            }
-        }
+    
         // ボタンをクリックしたときにカメラを起動
         document.querySelector('#cameraButton').addEventListener('click', function () {
             const inputElement = document.createElement('input');
