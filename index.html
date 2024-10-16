@@ -43,6 +43,15 @@
         text-align: center;
         position: relative;
       }
+      #photo {
+        margin-top: 20px;
+        width: 320px;
+        height: 240px;
+        border: 2px solid black;
+      }
+      button {
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -56,47 +65,106 @@
       <button onclick="window.location.href='https://chirashiplus.jp/'">広告</button>
       <button onclick="window.location.href='index3.html'">野菜の見分け方</button>
       <button onclick="window.location.href='http://192.168.0.20:81/stream'">カメラ</button>
-      <button id="cameraButton">カメラを起動</button>
+      <button id="cameraButton">カメラを起動してOCR</button>
       <div id="result"></div>
+
+      <!-- カメラ機能を追加 -->
+      <video id="video" autoplay></video>
+      <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+      <img id="photo" alt="撮影した写真がここに表示されます">
+
+      <div>
+        <button id="startCameraButton">カメラを起動</button>
+        <button id="captureButton">写真を撮る</button>
+      </div>
     </div>
+
     <script src="https://tesseract.projectnaptha.com/tesseract.js"></script>
     <script>
-    
-        // ボタンをクリックしたときにカメラを起動
-        document.querySelector('#cameraButton').addEventListener('click', function () {
-            const inputElement = document.createElement('input');
-            inputElement.type = 'file';
-            inputElement.accept = 'image/*';
-            inputElement.capture = 'camera';
+      // カメラ起動と写真撮影機能
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const photo = document.getElementById('photo');
+      const captureButton = document.getElementById('captureButton');
+      const startCameraButton = document.getElementById('startCameraButton');
+      const resultElement = document.getElementById('result');
 
-            // カメラアクセスをリクエスト
-            inputElement.click();
+      const context = canvas.getContext('2d');
 
-            // ファイル選択時に実行
-            inputElement.addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    // 選択されたファイルを表示
-                    const image = new Image();
-                    image.src = URL.createObjectURL(file);
-                    document.body.appendChild(image);
+      // カメラを起動する関数
+      function startCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true }) // ビデオストリームの取得
+          .then(function (stream) {
+            video.srcObject = stream; // ビデオ要素にストリームを接続
+          })
+          .catch(function (error) {
+            console.error('カメラにアクセスできません:', error);
+          });
+      }
 
-                    // Tesseract.jsでOCR処理
-                    const resultElement = document.getElementById('result');
-                    Tesseract.recognize(
-                        image,
-                        'eng', // 使用する言語を指定
-                        {
-                            logger: info => {
-                                console.log(info);
-                            },
-                        }
-                    ).then(({ data: { text } }) => {
-                        resultElement.textContent = text;
-                    });
-                }
-            });
+      // 写真を撮って表示し、OCRを実行する関数
+      function capturePhoto() {
+        // ビデオの映像をキャンバスに描画
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // キャンバスの内容を画像データとして取得し、imgタグに設定
+        const imageData = canvas.toDataURL('image/png');
+        photo.src = imageData;
+
+        // Tesseract.jsでOCR処理
+        Tesseract.recognize(
+          canvas,
+          'eng', // 使用する言語を指定
+          {
+            logger: info => {
+              console.log(info);
+            },
+          }
+        ).then(({ data: { text } }) => {
+          resultElement.textContent = text;
         });
+      }
+
+      // イベントリスナーを追加
+      startCameraButton.addEventListener('click', startCamera);
+      captureButton.addEventListener('click', capturePhoto);
+
+      // ファイル選択とカメラ起動
+      document.querySelector('#cameraButton').addEventListener('click', function () {
+        const inputElement = document.createElement('input');
+        inputElement.type = 'file';
+        inputElement.accept = 'image/*';
+        inputElement.capture = 'camera';
+
+        // カメラアクセスをリクエスト
+        inputElement.click();
+
+        // ファイル選択時に実行
+        inputElement.addEventListener('change', function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            // 選択されたファイルを表示
+            const image = new Image();
+            image.src = URL.createObjectURL(file);
+            document.body.appendChild(image);
+
+            // Tesseract.jsでOCR処理
+            Tesseract.recognize(
+              image,
+              'eng', // 使用する言語を指定
+              {
+                logger: info => {
+                  console.log(info);
+                },
+              }
+            ).then(({ data: { text } }) => {
+              resultElement.textContent = text;
+            });
+          }
+        });
+      });
+
       // service workerの登録関係
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service_worker.js').then(function(registration) {
@@ -105,7 +173,7 @@
           console.log('ServiceWorker registration failed: ', err);
         });
       }
-      
+
       // vue.jsの設定関係
       var app = new Vue({
         el: '#app',
