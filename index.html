@@ -5,25 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
     <link rel="manifest" href="manifest.json">
     <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
     <title>Refrigerator Checker</title>
-    <script type="text/javascript">
-      
-      function change1(event){
-        event.target.src = "Refrigerator.png";
-      }
-      
-      function change2(event){
-        event.target.src = "Refrigerator close.png";
-      }
-      
-      function clickevent(event) {
-        event.preventDefault(); // デフォルトのクリックイベントをキャンセル
-        window.location.href = "index2.html"; // URLを変更
-      }
-    </script>
     <style>
       h1 {
         font-weight: normal;
@@ -49,10 +33,29 @@
         height: 240px;
         border: 2px solid black;
       }
+      video, img {
+        width: 320px;
+        height: 240px;
+        border: 2px solid black;
+      }
       button {
         margin-top: 10px;
       }
     </style>
+    <script type="text/javascript">
+      function change1(event) {
+        event.target.src = "Refrigerator.png";
+      }
+
+      function change2(event) {
+        event.target.src = "Refrigerator close.png";
+      }
+
+      function clickevent(event) {
+        event.preventDefault(); // デフォルトのクリックイベントをキャンセル
+        window.location.href = "index2.html"; // URLを変更
+      }
+    </script>
   </head>
   <body>
     <div id="app">
@@ -65,8 +68,7 @@
       <button onclick="window.location.href='https://chirashiplus.jp/'">広告</button>
       <button onclick="window.location.href='index3.html'">野菜の見分け方</button>
       <button onclick="window.location.href='http://192.168.0.20:81/stream'">カメラ</button>
-      <button id="cameraButton">カメラを起動してOCR</button>
-      <div id="result"></div>
+      <button id="cameraButton">カメラを起動</button>
 
       <!-- カメラ機能を追加 -->
       <video id="video" autoplay></video>
@@ -79,7 +81,6 @@
       </div>
     </div>
 
-    <script src="https://tesseract.projectnaptha.com/tesseract.js"></script>
     <script>
       // カメラ起動と写真撮影機能
       const video = document.getElementById('video');
@@ -87,7 +88,6 @@
       const photo = document.getElementById('photo');
       const captureButton = document.getElementById('captureButton');
       const startCameraButton = document.getElementById('startCameraButton');
-      const resultElement = document.getElementById('result');
 
       const context = canvas.getContext('2d');
 
@@ -103,7 +103,7 @@
           });
       }
 
-      // 写真を撮って表示し、OCRを実行する関数
+      // 写真を撮って表示する関数
       function capturePhoto() {
         // ビデオの映像をキャンバスに描画
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -111,19 +111,6 @@
         // キャンバスの内容を画像データとして取得し、imgタグに設定
         const imageData = canvas.toDataURL('image/png');
         photo.src = imageData;
-
-        // Tesseract.jsでOCR処理
-        Tesseract.recognize(
-          canvas,
-          'eng', // 使用する言語を指定
-          {
-            logger: info => {
-              console.log(info);
-            },
-          }
-        ).then(({ data: { text } }) => {
-          resultElement.textContent = text;
-        });
       }
 
       // イベントリスナーを追加
@@ -148,19 +135,6 @@
             const image = new Image();
             image.src = URL.createObjectURL(file);
             document.body.appendChild(image);
-
-            // Tesseract.jsでOCR処理
-            Tesseract.recognize(
-              image,
-              'eng', // 使用する言語を指定
-              {
-                logger: info => {
-                  console.log(info);
-                },
-              }
-            ).then(({ data: { text } }) => {
-              resultElement.textContent = text;
-            });
           }
         });
       });
