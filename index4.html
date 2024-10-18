@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カメラ起動＆写真表示</title>
+    <style>
+      #camera-container {
+        text-align: center;
+      }
+
+      #video {
+        width: 320px;
+        height: 240px;
+        border: 2px solid black;
+      }
+
+      #canvas {
+        display: none; /* 撮影された画像を隠す */
+      }
+
+      #photo {
+        margin-top: 20px;
+        width: 320px;
+        height: 240px;
+        border: 2px solid black;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="camera-container">
+      <h1>カメラ起動＆写真表示</h1>
+
+      <!-- カメラ映像を表示するビデオ要素 -->
+      <video id="video" autoplay></video>
+
+      <!-- 撮影した写真を描画するキャンバス -->
+      <canvas id="canvas" width="320" height="240"></canvas>
+
+      <!-- 撮影した写真を表示するためのイメージタグ -->
+      <img id="photo" alt="撮影した写真がここに表示されます">
+
+      <!-- カメラを起動＆写真を撮るボタン -->
+      <div>
+        <button id="startButton">カメラを起動</button>
+        <button id="captureButton">写真を撮る</button>
+      </div>
+    </div>
+
+    <script>
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const photo = document.getElementById('photo');
+      const startButton = document.getElementById('startButton');
+      const captureButton = document.getElementById('captureButton');
+
+      const context = canvas.getContext('2d');
+
+      // カメラを起動する関数
+      function startCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true }) // ビデオストリームの取得
+          .then(function (stream) {
+            video.srcObject = stream; // ビデオ要素にストリームを接続
+          })
+          .catch(function (error) {
+            console.error('カメラにアクセスできません:', error);
+          });
+      }
+
+      // 写真を撮って表示する関数
+      function capturePhoto() {
+        // ビデオの映像をキャンバスに描画
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // キャンバスの内容を画像データとして取得し、imgタグに設定
+        const imageData = canvas.toDataURL('image/png');
+        photo.src = imageData;
+      }
+
+      // イベントリスナー
+      startButton.addEventListener('click', startCamera);
+      captureButton.addEventListener('click', capturePhoto);
+    </script>
+  </body>
+</html>
