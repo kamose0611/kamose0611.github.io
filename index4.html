@@ -60,19 +60,34 @@
 
       const context = canvas.getContext('2d');
 
-      // カメラを起動する関数（外カメラを指定）
+      // カメラを起動する関数（外カメラを優先し、失敗した場合はフロントカメラへフォールバック）
       function startCamera() {
+        // 外カメラをリクエスト
         navigator.mediaDevices
           .getUserMedia({
             video: {
               facingMode: { exact: "environment" } // 外カメラを指定
             }
-          }) // ビデオストリームの取得
+          })
           .then(function (stream) {
-            video.srcObject = stream; // ビデオ要素にストリームを接続
+            video.srcObject = stream; // 外カメラのストリームをビデオ要素に接続
           })
           .catch(function (error) {
-            console.error('カメラにアクセスできません:', error);
+            console.warn('外カメラにアクセスできませんでした。フロントカメラを使用します。', error);
+            // 外カメラにアクセスできなかった場合、フロントカメラにフォールバック
+            navigator.mediaDevices
+              .getUserMedia({
+                video: {
+                  facingMode: "user" // フロントカメラを指定
+                }
+              })
+              .then(function (stream) {
+                video.srcObject = stream; // フロントカメラのストリームをビデオ要素に接続
+              })
+              .catch(function (error) {
+                console.error('フロントカメラにもアクセスできません:', error);
+                alert('カメラにアクセスできませんでした。');
+              });
           });
       }
 
