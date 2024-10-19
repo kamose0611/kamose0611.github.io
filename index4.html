@@ -60,10 +60,14 @@
 
       const context = canvas.getContext('2d');
 
-      // カメラを起動する関数
+      // カメラを起動する関数（外カメラを指定）
       function startCamera() {
         navigator.mediaDevices
-          .getUserMedia({ video: true }) // ビデオストリームの取得
+          .getUserMedia({
+            video: {
+              facingMode: { exact: "environment" } // 外カメラを指定
+            }
+          }) // ビデオストリームの取得
           .then(function (stream) {
             video.srcObject = stream; // ビデオ要素にストリームを接続
           })
