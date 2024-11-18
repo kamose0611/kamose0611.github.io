@@ -3,10 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <link rel="manifest" href="manifest.json">
-    <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
     <title>Refrigerator Checker</title>
     <style>
       body,
@@ -39,9 +35,6 @@
         cursor: pointer;
       }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
     <script type="text/javascript">
       $(function() {
         var defaultIngredients = [
@@ -182,7 +175,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td><button id="add" type="button" @click="switchCamera">カメラ起動</button></td>
+              <td><button id="add" type="button" @click="switchCamera">欄の追加</button></td>
               <td><input type="submit" name="send" value="記録"></td>
             </tr>
           </tfoot>
@@ -201,25 +194,6 @@
             console.log('ServiceWorker registration failed: ', err);
           });
       }
-      // vue.jsの設定関係
-      var app = new Vue({
-        el: '#app',
-        methods: {
-          switchCamera: function() {
-            // カメラ切り替えの処理を記述
-            navigator.mediaDevices.getUserMedia({ video: true })
-              .then(function(stream) {
-                // カメラにアクセス成功時の処理
-                alert('カメラにアクセスしました');
-                // ここで取得したストリームを使って何か処理を行うことができます
-              })
-              .catch(function(error) {
-                // カメラにアクセス失敗時の処理
-                console.error('カメラにアクセスできません: ', error);
-              });
-          },
-        },
-      });
     </script>
   </body>
 </html>
